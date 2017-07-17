@@ -6,7 +6,7 @@
   </head>
   <body>
     <script>
-// Now it is your turn.  
+// Now it is your turn.
 
 /* Here is what you start with:
  * You have a function. When you call it with a message argument,
@@ -56,8 +56,8 @@ renderSomethingOnThePage(
  * will draw something to the page using the template defined in that function:
  */
 
-// renderSomethingOnThePage('Each additional message you give this function...');
-// renderSomethingOnThePage('...will draw a new message on the page!');
+renderSomethingOnThePage('Each additional message you give this function...');
+renderSomethingOnThePage('...will draw a new message on the page!');
 
 /* Let's revisit what we have learned from the last exercise.
  * We are working with a different application this time - we are going to be
@@ -76,7 +76,7 @@ renderSomethingOnThePage(
  * _Confused about what `extend` means or does? This is all about the prototype
  * and inhertance. If you're stuck, halp yourself a teacher to explain._
  */
-var Message = Backbone.Model.extend({  
+var Message = Backbone.Model.extend({
   /* Our messages should have two methods that someone could call.
    * The first one, `initialize`, is specific to Backbone.
    *
@@ -98,10 +98,12 @@ var Message = Backbone.Model.extend({
      *
      * Notice that we are calling `this.on()`.
      * This call is basically the same as the previous exercise.
-     * Putting it into the initialize function let's us be sure that
+     * Putting it into the initialize function lets us be sure that
      * all models that are created will have event listeners on them.
      */
-    this.on(YOUR CODE HERE);
+    this.on('change:message', function(){
+      renderSomethingOnThePage(this.attributes.message);
+    });
     /* It is your turn to write the event handler.
      *
      * Make an event listener that will listen for a `change` in this model's
@@ -141,6 +143,7 @@ var myNewMessage = new Message();
 
 // ...and then make a change on that model to see it render
 myNewMessage.set({message: 'someMessage'});
+myNewMessage.alertThisMessage();
 
 
 /* Once the model is rendering on the `change` event, move on to step 3!
